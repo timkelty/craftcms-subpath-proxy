@@ -6,7 +6,7 @@
 cp .env.example .env
 docker-compose up -d
 
-# Use defaults
+# Set `@web` for site URL
 docker-compose exec craft php craft install
 ```
 
