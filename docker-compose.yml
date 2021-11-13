@@ -1,0 +1,44 @@
+version: "3.2"
+services:
+  proxy:
+    image: traefik:v2.4
+    restart: always
+    command:
+      - "--accessLog=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  craft:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+      - vendor:/app/vendor
+    depends_on:
+      - mysql
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${TRAEFIK_NAME_BACKEND}.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`/backend`)"
+      - "traefik.http.routers.${TRAEFIK_NAME_BACKEND}.entrypoints=web"
+      - "traefik.http.routers.${TRAEFIK_NAME_FRONTEND}.middlewares=${TRAEFIK_NAME_FRONTEND}-stripprefix"
+      - "traefik.http.middlewares.${TRAEFIK_NAME_BACKEND}-stripprefix.stripprefix.prefixes=/backend"
+  mysql:
+    image: mariadb:10.4
+    restart: always
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+volumes:
+  database:
+  vendor:
