@@ -1,0 +1,23 @@
+dateModified: 1637594866
+email:
+  fromEmail: tim@pixelandtonic.com
+  fromName: Foo
+  transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    3a1073f6-eb6f-466b-891c-cde28db575f2: Common # Common
+    3df1ef5b-0d5d-4f56-9795-e9d0eeb4be03: Foo # Foo
+    bd55efe2-6a0c-4f06-9f16-4eda9a33e3ac: Foo # Foo
+    bfc48607-1c5e-45ad-83e0-2dd575e1e6ab: 'Test Asset Volume' # Test Asset Volume
+system:
+  edition: solo
+  live: true
+  name: Foo
+  schemaVersion: 3.7.8
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true

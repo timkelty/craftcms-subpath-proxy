@@ -1,0 +1,9 @@
+baseUrl: '@web'
+enabled: true
+handle: default
+hasUrls: true
+language: en-US
+name: Foo
+primary: true
+siteGroup: 3df1ef5b-0d5d-4f56-9795-e9d0eeb4be03 # Foo
+sortOrder: 1

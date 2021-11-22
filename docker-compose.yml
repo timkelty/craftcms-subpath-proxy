@@ -20,6 +20,7 @@ services:
     restart: always
     volumes:
       - .:/app
+      - ./default.conf:/etc/nginx/conf.d/default.conf
       - vendor:/app/vendor
     depends_on:
       - mysql
@@ -27,7 +28,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.${TRAEFIK_NAME_BACKEND}.rule=Host(`${TRAEFIK_HOST}`) && PathPrefix(`/backend`)"
       - "traefik.http.routers.${TRAEFIK_NAME_BACKEND}.entrypoints=web"
-      - "traefik.http.routers.${TRAEFIK_NAME_FRONTEND}.middlewares=${TRAEFIK_NAME_FRONTEND}-stripprefix"
       - "traefik.http.middlewares.${TRAEFIK_NAME_BACKEND}-stripprefix.stripprefix.prefixes=/backend"
   mysql:
     image: mariadb:10.4
